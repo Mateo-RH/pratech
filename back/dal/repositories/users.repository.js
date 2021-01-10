@@ -1,11 +1,11 @@
 const UsersSchema = require('../schemas/users.schema');
 
 module.exports = {
-  create: async function (user) {
+  create: function (user) {
     const newUser = new UsersSchema(user);
-    return await newUser.save();
+    return newUser.save();
   },
-  getByEmail: async function ({ email }) {
-    return await UsersSchema.findOne({ email });
+  getByEmail: function ({ email }) {
+    return UsersSchema.findOne({ email });
   },
 };

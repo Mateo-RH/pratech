@@ -7,16 +7,16 @@ const Router = require('./router');
 const DB = require('../dal');
 
 // Routes
-const { UserRoutes } = require('./routes');
+const { UserRoutes, ProductsRoutes } = require('./routes');
 
 // Controllers
-const { UserController } = require('./controllers');
+const { UserController, ProductsController } = require('./controllers');
 
 // Business
-const { UserBusiness } = require('../business');
+const { UserBusiness, ProductsBusiness } = require('../business');
 
 // Repositories
-const { UserRepositorty } = require('../dal/repositories');
+const { UserRepositorty, ProductsRepository } = require('../dal/repositories');
 
 const container = createContainer();
 container
@@ -31,6 +31,12 @@ container
     UserController: asClass(UserController).singleton(),
     UserBusiness: asClass(UserBusiness).singleton(),
     UserRepositorty: asValue(UserRepositorty),
+  })
+  .register({
+    ProductsRoutes: asFunction(ProductsRoutes).singleton(),
+    ProductsController: asClass(ProductsController).singleton(),
+    ProductsBusiness: asClass(ProductsBusiness).singleton(),
+    ProductsRepository: asValue(ProductsRepository),
   });
 
 module.exports = container;
