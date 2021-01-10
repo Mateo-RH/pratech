@@ -5,4 +5,7 @@ module.exports = {
     const newUser = new UsersSchema(user);
     return await newUser.save();
   },
+  getByEmail: async function ({ email }) {
+    return await UsersSchema.findOne({ email });
+  },
 };
