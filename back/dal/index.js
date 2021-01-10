@@ -9,7 +9,11 @@ class DB {
     return new Promise((resolve, reject) => {
       mongoose.connect(
         this._config.DB,
-        { useNewUrlParser: true, useUnifiedTopology: true },
+        {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          useCreateIndex: true,
+        },
         (err, res) => {
           if (err) return reject(err);
           console.log('Connected to db');

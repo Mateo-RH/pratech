@@ -28,9 +28,11 @@ class ProductsController {
     try {
       const { id } = req.params;
       const product = await this.business.getOne(id);
-      return res.send({
-        payload: product,
-      });
+      return product
+        ? res.send({
+            payload: product,
+          })
+        : res.status(404).send();
     } catch (e) {
       return res.status(500).send(e.message || 'Internal server error');
     }
@@ -38,10 +40,8 @@ class ProductsController {
   async delete(req, res) {
     try {
       const { id } = req.params;
-      const product = await this.business.delete(id);
-      return res.send({
-        payload: product,
-      });
+      await this.business.delete(id);
+      return res.status(204).send();
     } catch (e) {
       return res.status(500).send(e.message || 'Internal server error');
     }
@@ -52,10 +52,8 @@ class ProductsController {
         body,
         params: { id },
       } = req;
-      const product = await this.business.update(id, body);
-      return res.send({
-        payload: product,
-      });
+      await this.business.update(id, body);
+      return res.status(204).send();
     } catch (e) {
       return res.status(500).send(e.message || 'Internal server error');
     }

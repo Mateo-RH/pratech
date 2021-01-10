@@ -1,9 +1,45 @@
 module.exports = {
-  MapToDto: function ({ id, name, email }) {
-    return { id, name, email };
+  MapToDto: function ({
+    _id: id,
+    name,
+    tags,
+    available,
+    description,
+    expires,
+    quantity,
+    type,
+  }) {
+    return {
+      id,
+      name,
+      tags,
+      available,
+      description,
+      expires,
+      quantity,
+      type,
+    };
   },
-  MapToDao: function ({ name, email, password }) {
-    const bcrypt = require('bcryptjs');
-    return { name, email, password: password && bcrypt.hashSync(password, 10) };
+  MapToDao: function ({
+    name,
+    tags,
+    available,
+    description,
+    expires,
+    quantity,
+    type,
+  }) {
+    return {
+      name,
+      tags,
+      available,
+      description,
+      expires,
+      quantity,
+      type,
+    };
+  },
+  MapToDtoList: function ({ _id: id, name, quantity }) {
+    return { id, name, quantity };
   },
 };
