@@ -4,7 +4,7 @@ import {User} from "./User"
 
 
 export const Session: React.FC = () => {
-    const [token, setToken] = useState<string|undefined>();
+    const [token, setToken] = useState<string>();
     
     useEffect(() => {
         // Look for token on localstorage

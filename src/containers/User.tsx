@@ -13,23 +13,19 @@ export const User: React.FC<Props> = ({setToken}) => {
     const [showRegister, setShowRegister] = useState<boolean>(false)
 
     const login = () => {
-        console.log(email);
-        console.log(password);
         const token = email+password
-        // setToken(token)
+        console.log("LOGIN");
+        setToken(token)
     }
 
     const register = () => {
-        console.log(email);
-        console.log(name);
-        console.log(password);
-
+        console.log("REGISTER");
     }
 
     return (
         <div>
-            {showRegister ?
-                <React.Fragment>
+            {showRegister
+                ?<React.Fragment>
                     <RegisterForm 
                         Email={{value: email, setter: setEmail}}
                         Name={{value: name, setter: setName}}
@@ -39,8 +35,8 @@ export const User: React.FC<Props> = ({setToken}) => {
                     <button onClick={() => setShowRegister(false)}>
                         Login
                     </button>
-                </React.Fragment>: 
-                <React.Fragment>
+                </React.Fragment> 
+                :<React.Fragment>
                     <LoginForm 
                         login={login} 
                         Email={{value: email, setter: setEmail}} 
