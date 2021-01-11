@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import {LoginForm} from "../components/LoginForm"
-import {RegisterForm} from "../components/RegisterForm"
+import {LoginForm} from "../presenters/LoginForm"
+import {RegisterForm} from "../presenters/RegisterForm"
+import {Error} from "../presenters/Error"
+import UserMethods from "../controllers"
 
 interface Props {
     setToken: (arg0:string|undefined) => void
@@ -11,19 +13,33 @@ export const User: React.FC<Props> = ({setToken}) => {
     const [password, setPassword] = useState<string>("")
     const [name, setName] = useState<string>("")
     const [showRegister, setShowRegister] = useState<boolean>(false)
+    const [error, setError] = useState<string>("")
 
     const login = () => {
-        const token = email+password
-        console.log("LOGIN");
-        setToken(token)
+        UserMethods.login(email, password).then(token => {
+            localStorage.setItem("token", token)
+            setToken(token)
+        }).catch(error => setError(error.message))
     }
 
     const register = () => {
-        console.log("REGISTER");
+        UserMethods.register(email, password, register).then(() => {
+            // TODO: show success
+            setShowRegister(false)
+        }).catch(error => setError(error.message))
     }
+
+    const cleanStates = () => {
+        setEmail("")
+        setPassword("")
+        setName("")
+        setError("")
+    }
+
 
     return (
         <div>
+            {error && setTimeout(() => setError(""),3000) && <Error error={error}/>}
             {showRegister
                 ?<React.Fragment>
                     <RegisterForm 
@@ -31,6 +47,7 @@ export const User: React.FC<Props> = ({setToken}) => {
                         Name={{value: name, setter: setName}}
                         Password={{value: password, setter: setPassword}}
                         register={register}
+                        cleanStates={cleanStates}
                     />
                     <button onClick={() => setShowRegister(false)}>
                         Login
@@ -41,6 +58,7 @@ export const User: React.FC<Props> = ({setToken}) => {
                         login={login} 
                         Email={{value: email, setter: setEmail}} 
                         Password={{value: password, setter: setPassword}} 
+                        cleanStates={cleanStates}
                     />
                     <button onClick={() => setShowRegister(true)}>
                         Create Account

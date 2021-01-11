@@ -1,7 +1,8 @@
 import React from 'react';
-import {Session} from "./containers/Session"
+import {Session} from "./components/Session"
 
 const App: React.FC = () => {
+  
   return (
     <div>
       <Session />

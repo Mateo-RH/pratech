@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 interface Props {
     register: () => void
     Email: Field
     Password: Field
-    Name: Field
+    Name: Field,
+    cleanStates: () => void
 }
 
 interface Field {
@@ -12,10 +13,12 @@ interface Field {
     setter: (arg0:string) => void
 }
 
-export const RegisterForm: React.FC<Props> = ({register, Email, Password, Name}) => {
+export const RegisterForm: React.FC<Props> = ({register, Email, Password, Name, cleanStates}) => {
     const {value: email, setter: setEmail} = Email
     const {value: password, setter: setPassword} = Password
     const {value: name, setter: setName} = Name
+
+    useEffect(() => cleanStates(),[])
 
     return (
         <div>
