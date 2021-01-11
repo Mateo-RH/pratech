@@ -18,7 +18,8 @@ class ProductsController {
   }
   async getAll(req, res) {
     try {
-      const product = await this.business.getAll();
+      const { id } = req.query;
+      const product = await this.business.getAll(id);
       return res.send({
         payload: product,
       });

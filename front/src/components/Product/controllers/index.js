@@ -20,8 +20,9 @@ const productMethods = {
     }).then((res) => res.data.payload);
   },
 
-  getAll: function (token) {
-    return Axios.get('products', { headers: { authorization: token } }).then(
+  getAll: function (token, id) {
+    const route = id ? `products?id=${id}` : 'products';
+    return Axios.get(route, { headers: { authorization: token } }).then(
       (res) => res.data.payload
     );
   },

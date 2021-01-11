@@ -11,11 +11,13 @@ interface Product {
 
 interface Props {
   token: string;
+  setToken: (arg0: string) => void;
 }
 
-export const Products: React.FC<Props> = ({ token }) => {
+export const Products: React.FC<Props> = ({ token, setToken }) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [productId, setProductId] = useState<string>();
+  const [productId, setProductId] = useState<string>('');
+  const [selectedProduct, setSelectedProduct] = useState<string>('');
 
   useEffect(() => {
     ProductMethods.getAll(token)
@@ -28,12 +30,38 @@ export const Products: React.FC<Props> = ({ token }) => {
       });
   }, []);
 
+  const logout = () => {
+    setToken('');
+  };
+
+  const search = () => {
+    ProductMethods.getAll(token, productId)
+      .then((products) => {
+        setProducts(products);
+      })
+      .catch((e) => {
+        //   TODO: ERROR MESSAGES
+        console.log(e);
+      });
+  };
+
   return (
     <React.Fragment>
-      {productId ? (
-        <FullProduct id={productId} token={token} />
+      <button onClick={logout}>Logout</button>
+      <label>Product id</label>
+      <input
+        type="text"
+        value={productId}
+        onChange={(event) => setProductId(event.target.value)}
+      />
+      <button onClick={search}>Search</button>
+      {selectedProduct ? (
+        <FullProduct id={selectedProduct} token={token} />
       ) : (
-        <ProductsTable products={products} setProductId={setProductId} />
+        <ProductsTable
+          products={products}
+          setSelectedProduct={setSelectedProduct}
+        />
       )}
     </React.Fragment>
   );

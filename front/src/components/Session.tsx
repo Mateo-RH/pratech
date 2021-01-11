@@ -18,7 +18,11 @@ export const Session: React.FC = () => {
 
   return (
     <React.Fragment>
-      {token ? <Products token={token} /> : <User setToken={setToken} />}
+      {token ? (
+        <Products token={token} setToken={setToken} />
+      ) : (
+        <User setToken={setToken} />
+      )}
     </React.Fragment>
   );
 };

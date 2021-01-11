@@ -17,9 +17,15 @@ class ProductsBusiness {
     return MapToDto(createdProduct);
   }
 
-  async getAll() {
-    const products = await this.repo.getAll();
-    return products.map(MapToDtoList);
+  async getAll(id) {
+    try {
+      const products = id
+        ? [await this.repo.getOne(id)]
+        : await this.repo.getAll();
+      return products.map(MapToDtoList);
+    } catch {
+      return [];
+    }
   }
 
   async getOne(id) {

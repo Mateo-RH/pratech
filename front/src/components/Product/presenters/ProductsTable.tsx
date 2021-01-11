@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Props {
   products: Product[];
-  setProductId: (arg0: string) => void;
+  setSelectedProduct: (arg0: string) => void;
 }
 
 interface Product {
@@ -11,13 +11,17 @@ interface Product {
   quantity: number;
 }
 
-export const ProductsTable: React.FC<Props> = ({ products, setProductId }) => {
+export const ProductsTable: React.FC<Props> = ({
+  products,
+  setSelectedProduct,
+}) => {
   const renderRow = (product: Product) => {
     return (
-      <tr key={product.id} onClick={() => setProductId(product.id)}>
+      <tr key={product.id}>
         {Object.entries(product).map((x, i) => (
           <td key={i}>{x[1]}</td>
         ))}
+        <button onClick={() => setSelectedProduct(product.id)}>Select</button>
       </tr>
     );
   };
