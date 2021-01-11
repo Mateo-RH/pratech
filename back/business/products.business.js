@@ -2,6 +2,7 @@ const {
   MapToDao,
   MapToDto,
   MapToDtoList,
+  MapToUpdateDao,
 } = require('./mappers/products.mapper');
 
 class ProductsBusiness {
@@ -31,7 +32,7 @@ class ProductsBusiness {
   }
 
   async update(id, product) {
-    product = MapToDao(product);
+    product = MapToUpdateDao(product);
     return await this.repo.update(id, product);
   }
 }

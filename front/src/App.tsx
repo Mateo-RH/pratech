@@ -1,13 +1,8 @@
 import React from 'react';
-import {Session} from "./components/Session"
+import { Session } from './components/Session';
 
 const App: React.FC = () => {
-  
-  return (
-    <div>
-      <Session />
-    </div>
-  )
-}
+  return <Session />;
+};
 
 export default App;

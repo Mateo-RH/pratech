@@ -19,6 +19,8 @@ module.exports = {
   },
 
   update: function (id, product) {
-    return ProductsSchema.findByIdAndUpdate(id, product);
+    return ProductsSchema.findByIdAndUpdate(id, product, {
+      useFindAndModify: false,
+    });
   },
 };

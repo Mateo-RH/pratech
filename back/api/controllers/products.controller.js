@@ -11,7 +11,9 @@ class ProductsController {
         payload: product,
       });
     } catch (e) {
-      return res.status(500).send(e.message || 'Internal server error');
+      return res
+        .status(500)
+        .send({ message: e.message || 'Internal server error' });
     }
   }
   async getAll(req, res) {
@@ -21,7 +23,9 @@ class ProductsController {
         payload: product,
       });
     } catch (e) {
-      return res.status(500).send(e.message || 'Internal server error');
+      return res
+        .status(500)
+        .send({ message: e.message || 'Internal server error' });
     }
   }
   async getOne(req, res) {
@@ -34,7 +38,9 @@ class ProductsController {
           })
         : res.status(404).send();
     } catch (e) {
-      return res.status(500).send(e.message || 'Internal server error');
+      return res
+        .status(500)
+        .send({ message: e.message || 'Internal server error' });
     }
   }
   async delete(req, res) {
@@ -43,7 +49,9 @@ class ProductsController {
       await this.business.delete(id);
       return res.status(204).send();
     } catch (e) {
-      return res.status(500).send(e.message || 'Internal server error');
+      return res
+        .status(500)
+        .send({ message: e.message || 'Internal server error' });
     }
   }
   async update(req, res) {
@@ -55,7 +63,9 @@ class ProductsController {
       await this.business.update(id, body);
       return res.status(204).send();
     } catch (e) {
-      return res.status(500).send(e.message || 'Internal server error');
+      return res
+        .status(500)
+        .send({ message: e.message || 'Internal server error' });
     }
   }
 }

@@ -2,41 +2,60 @@ module.exports = {
   MapToDto: function ({
     _id: id,
     name,
-    tags,
+    tag,
     available,
     description,
     expires,
     quantity,
-    type,
+    productType,
   }) {
     return {
       id,
       name,
-      tags,
+      tag,
       available,
       description,
       expires,
       quantity,
-      type,
+      productType,
     };
   },
   MapToDao: function ({
     name,
-    tags,
+    tag,
     available,
     description,
     expires,
     quantity,
-    type,
+    productType,
   }) {
     return {
       name,
-      tags,
+      tag,
       available,
       description,
       expires,
       quantity,
-      type,
+      productType,
+    };
+  },
+  MapToUpdateDao: function ({
+    name,
+    tag,
+    available,
+    description,
+    expires,
+    quantity,
+    productType,
+  }) {
+    return {
+      ...(name && { name }),
+      ...(tag && { tag }),
+      ...(available && { available }),
+      ...(description && { description }),
+      ...(expires && { expires }),
+      ...(quantity && { quantity }),
+      ...(productType && { productType }),
     };
   },
   MapToDtoList: function ({ _id: id, name, quantity }) {

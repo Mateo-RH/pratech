@@ -18,11 +18,11 @@ let productSchema = new Schema({
     type: Number,
     required: true,
   },
-  tags: {
-    type: [String],
+  tag: {
+    type: String,
     required: true,
   },
-  type: {
+  productType: {
     type: String,
     required: true,
   },

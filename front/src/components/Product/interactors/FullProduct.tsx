@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductMethods from '../controllers';
+import { ProductForm } from '../presenters/ProductForm';
 
 interface Props {
   id: string;
@@ -10,11 +11,11 @@ interface Product {
   id: string;
   name: string;
   description: string;
-  expiration: Date;
+  expires: string;
   quantity: number;
-  tags: string[];
-  type: 'meat' | 'fruit' | 'vegetal';
-  avaible: Boolean;
+  tag: string;
+  productType: string;
+  available: Boolean;
 }
 
 export const FullProduct: React.FC<Props> = ({ id, token }) => {
@@ -22,15 +23,31 @@ export const FullProduct: React.FC<Props> = ({ id, token }) => {
 
   useEffect(() => {
     ProductMethods.getOne(id, token)
-      .then((product) => setProduct(product))
+      .then((product) => {
+        setProduct(product);
+        console.log(product);
+      })
       .catch((e) => {
+        // TODO: error
         console.log(e);
       });
   }, []);
 
+  const updateProduct = () => {
+    ProductMethods.update(id, token, product).then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
-    <div>
-      <h1>FullProduct: {id}</h1>
-    </div>
+    <React.Fragment>
+      {product && (
+        <ProductForm
+          product={product}
+          setProduct={setProduct}
+          updateProduct={updateProduct}
+        />
+      )}
+    </React.Fragment>
   );
 };

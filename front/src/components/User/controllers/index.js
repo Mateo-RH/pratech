@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-export default {
+const userMethods = {
   login: function (email, password) {
     return Axios.post('users/login', { email, password }).then(
       (res) => res.data.payload
@@ -12,3 +12,5 @@ export default {
     );
   },
 };
+
+export default userMethods;
