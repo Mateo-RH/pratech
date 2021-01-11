@@ -1,44 +1,43 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface Props {
   login: () => void;
-  Email: Field;
-  Password: Field;
-  cleanStates: () => void;
+  user: any;
+  setUser: (arg0: any) => void;
 }
 
-interface Field {
-  value: string;
-  setter: (arg0: string) => void;
-}
+export const LoginForm: React.FC<Props> = ({ login, user, setUser }) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    login();
+  };
 
-export const LoginForm: React.FC<Props> = ({
-  login,
-  Email,
-  Password,
-  cleanStates,
-}) => {
-  const { value: email, setter: setEmail } = Email;
-  const { value: password, setter: setPassword } = Password;
-
-  useEffect(() => cleanStates(), []);
+  const handleChange = (event: any) => {
+    const newUser = {
+      ...user,
+      [event.target.name]: event.target.value,
+    };
+    setUser(newUser);
+  };
 
   return (
-    <React.Fragment>
+    <form onSubmit={handleSubmit}>
       <h1>Login</h1>
       <label>Email</label>
       <input
         type="text"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
+        value={user.email}
+        name="email"
+        onChange={handleChange}
       />
       <label>Password</label>
       <input
         type="password"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
+        value={user.password}
+        name="password"
+        onChange={handleChange}
       />
-      <button onClick={login}>Login</button>
-    </React.Fragment>
+      <input type="submit" value="Submit" />
+    </form>
   );
 };

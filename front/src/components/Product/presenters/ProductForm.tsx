@@ -36,7 +36,7 @@ export const ProductForm: React.FC<Props> = ({
           const [name, input] = entry;
           const { type } = input;
           if (type === 'select') return renderSelect(name, input);
-          else if (type == 'radio') return renderRadio(name, input);
+          else if (type === 'radio') return renderRadio(name, input);
           else return renderInput(type, name, input);
         })}
         <input type="submit" value="Submit" />
@@ -45,7 +45,7 @@ export const ProductForm: React.FC<Props> = ({
   };
 
   const renderInput = (type: string, name: string, input: any) => {
-    type == 'date' && (product[name] = product[name].split('T')[0]);
+    type === 'date' && (product[name] = product[name].split('T')[0]);
     return (
       <div key={name}>
         <label>{input.label}</label>

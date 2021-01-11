@@ -1,47 +1,50 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 interface Props {
-    register: () => void
-    Email: Field
-    Password: Field
-    Name: Field,
-    cleanStates: () => void
+  register: () => void;
+  user: any;
+  setUser: (arg0: any) => void;
 }
 
-interface Field {
-    value: string
-    setter: (arg0:string) => void
-}
+export const RegisterForm: React.FC<Props> = ({ user, setUser, register }) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    register();
+  };
 
-export const RegisterForm: React.FC<Props> = ({register, Email, Password, Name, cleanStates}) => {
-    const {value: email, setter: setEmail} = Email
-    const {value: password, setter: setPassword} = Password
-    const {value: name, setter: setName} = Name
+  const handleChange = (event: any) => {
+    const newUser = {
+      ...user,
+      [event.target.name]: event.target.value,
+    };
+    setUser(newUser);
+  };
 
-    useEffect(() => cleanStates(),[])
-
-    return (
-        <div>
-            <h1>Registration</h1>
-            <label>Email</label>
-            <input
-                type="text"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-            />
-            <label>Password</label>
-            <input
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-            />
-            <label>Name</label>
-            <input
-                type="text"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-            />
-            <button onClick={register}>Register</button>
-        </div>
-    )
-}
+  return (
+    <form onSubmit={handleSubmit}>
+      <h1>Registration</h1>
+      <label>Email</label>
+      <input
+        type="text"
+        value={user.email}
+        name="email"
+        onChange={handleChange}
+      />
+      <label>Password</label>
+      <input
+        type="password"
+        value={user.password}
+        name="password"
+        onChange={handleChange}
+      />
+      <label>Name</label>
+      <input
+        type="text"
+        value={user.name}
+        name="name"
+        onChange={handleChange}
+      />
+      <input type="submit" value="Submit" />
+    </form>
+  );
+};
