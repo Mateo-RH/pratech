@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FullProduct } from './FullProduct';
+import { CreateProduct } from './CreateProduct';
 import { ProductsTable } from '../presenters/ProductsTable';
 import ProductMethods from '../controllers';
 
@@ -18,6 +19,7 @@ export const Products: React.FC<Props> = ({ token, setToken }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [productId, setProductId] = useState<string>('');
   const [selectedProduct, setSelectedProduct] = useState<string>('');
+  const [showCreateProduct, setShowCreateProduct] = useState<boolean>(false);
 
   useEffect(() => {
     ProductMethods.getAll(token)
@@ -55,7 +57,9 @@ export const Products: React.FC<Props> = ({ token, setToken }) => {
         onChange={(event) => setProductId(event.target.value)}
       />
       <button onClick={search}>Search</button>
-      {selectedProduct ? (
+      {showCreateProduct ? (
+        <CreateProduct token={token} />
+      ) : selectedProduct ? (
         <FullProduct id={selectedProduct} token={token} />
       ) : (
         <ProductsTable
@@ -63,6 +67,7 @@ export const Products: React.FC<Props> = ({ token, setToken }) => {
           setSelectedProduct={setSelectedProduct}
         />
       )}
+      <button onClick={() => setShowCreateProduct(true)}>New Product</button>
     </React.Fragment>
   );
 };

@@ -7,7 +7,7 @@
     "required":true
   },
   "description":{"type":"text","label":"Description","required":true},
-  "expires":{"type":"date","label":"Expires"},
+  "expires":{"type":"date","label":"Expires", "required":true},
   "quantity":{"type":"number","label":"Quantity","required":true},
   "productType":{
     "type":"select",
@@ -22,11 +22,12 @@
   "tag":{
     "type":"radio",
     "label":"Tag",
+    "required":true,
     "options":[
       {"label":"Vegan","value":"vegan"},
       {"label":"Healthy","value":"healthy"},
       {"label":"Gluten free","value":"gluten free"}
     ]
   },
-  "available":{"type":"checkbox","label":"Available"}
+  "available":{"type":"checkbox","label":"Available", "required":true}
 }

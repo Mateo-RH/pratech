@@ -21,7 +21,7 @@ export const ProductsTable: React.FC<Props> = ({
         {Object.entries(product).map((x, i) => (
           <td key={i}>{x[1]}</td>
         ))}
-        <button onClick={() => setSelectedProduct(product.id)}>Select</button>
+        <p onClick={() => setSelectedProduct(product.id)}>Select</p>
       </tr>
     );
   };

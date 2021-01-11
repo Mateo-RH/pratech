@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ProductMethods from '../controllers';
 import { ProductForm } from '../presenters/ProductForm';
 
 interface Props {
-  id: string;
   token: string;
 }
 
@@ -18,32 +17,20 @@ interface Product {
   available: Boolean;
 }
 
-export const FullProduct: React.FC<Props> = ({ id, token }) => {
+export const CreateProduct: React.FC<Props> = ({ token }) => {
   const [product, setProduct] = useState<Product>({
     id: '',
     name: '',
     description: '',
-    expires: '',
+    expires: new Date().toISOString(),
     quantity: 0,
-    tag: '',
+    tag: 'healthy',
     productType: '',
     available: true,
   });
 
-  useEffect(() => {
-    ProductMethods.getOne(id, token)
-      .then((product) => {
-        setProduct(product);
-        console.log(product);
-      })
-      .catch((e) => {
-        // TODO: error
-        console.log(e);
-      });
-  }, []);
-
-  const updateProduct = () => {
-    ProductMethods.update(id, token, product)
+  const createProduct = () => {
+    ProductMethods.create(token, product)
       .then((res) => {
         console.log(res);
       })
@@ -59,7 +46,7 @@ export const FullProduct: React.FC<Props> = ({ id, token }) => {
         <ProductForm
           product={product}
           setProduct={setProduct}
-          updateProduct={updateProduct}
+          updateProduct={createProduct}
         />
       )}
     </React.Fragment>
