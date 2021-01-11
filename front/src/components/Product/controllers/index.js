@@ -34,7 +34,6 @@ const productMethods = {
 
   update: function (id, token, product) {
     product = productMapper(product);
-    console.log(product);
     return Axios.patch(`products/${id}`, product, {
       headers: { authorization: token },
     });

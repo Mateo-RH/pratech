@@ -32,6 +32,10 @@ class UserController {
         .send({ message: e.message || 'Internal server error' });
     }
   }
+
+  async validate(req, res) {
+    return res.status(204).send();
+  }
 }
 
 module.exports = UserController;

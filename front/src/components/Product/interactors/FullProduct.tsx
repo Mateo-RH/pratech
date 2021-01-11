@@ -34,9 +34,14 @@ export const FullProduct: React.FC<Props> = ({ id, token }) => {
   }, []);
 
   const updateProduct = () => {
-    ProductMethods.update(id, token, product).then((res) => {
-      console.log(res);
-    });
+    ProductMethods.update(id, token, product)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        // TODO: error
+        console.log(e);
+      });
   };
 
   return (

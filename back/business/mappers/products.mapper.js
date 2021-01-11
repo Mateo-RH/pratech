@@ -51,7 +51,7 @@ module.exports = {
     return {
       ...(name && { name }),
       ...(tag && { tag }),
-      ...(available && { available }),
+      ...(available != undefined && { available }),
       ...(description && { description }),
       ...(expires && { expires }),
       ...(quantity && { quantity }),

@@ -1,65 +1,5 @@
 import React from 'react';
-
-const formSchema = {
-  name: {
-    type: 'text',
-    label: 'Name',
-    maxLength: 155,
-    pattern: '[A-Za-z]{3}',
-    required: true,
-  },
-  description: {
-    type: 'text',
-    label: 'Description',
-    required: true,
-  },
-  quantity: {
-    type: 'number',
-    label: 'Quantity',
-    required: true,
-  },
-  productType: {
-    type: 'select',
-    label: 'productType',
-    required: true,
-    options: [
-      {
-        label: 'Meat',
-        value: 'meat',
-      },
-      {
-        label: 'Fruit',
-        value: 'fruit',
-      },
-      {
-        label: 'Vegetal',
-        value: 'vegetal',
-      },
-    ],
-  },
-  tag: {
-    type: 'radio',
-    label: 'Tag',
-    options: [
-      {
-        label: 'Vegan',
-        value: 'vegan',
-      },
-      {
-        label: 'Healthy',
-        value: 'healthy',
-      },
-      {
-        label: 'Gluten free',
-        value: 'gluten free',
-      },
-    ],
-  },
-  available: {
-    type: 'checkbox',
-    label: 'Available',
-  },
-};
+import formSchema from './ProductFormSchema.json';
 
 interface Props {
   product: any;
@@ -105,6 +45,7 @@ export const ProductForm: React.FC<Props> = ({
   };
 
   const renderInput = (type: string, name: string, input: any) => {
+    type == 'date' && (product[name] = product[name].split('T')[0]);
     return (
       <div key={name}>
         <label>{input.label}</label>
@@ -113,6 +54,10 @@ export const ProductForm: React.FC<Props> = ({
           value={product[name]}
           name={name}
           onChange={handleChange}
+          checked={type === 'checkbox' && product[name]}
+          required={!!input.required}
+          maxLength={input.maxLength || 524288}
+          pattern={input.pattern || '.*'}
         />
         <br />
       </div>

@@ -1,0 +1,32 @@
+{
+"name":{
+    "type":"text",
+    "label":"Name",
+    "maxLength":20,
+    "pattern":"[a-z]*",
+    "required":true
+  },
+  "description":{"type":"text","label":"Description","required":true},
+  "expires":{"type":"date","label":"Expires"},
+  "quantity":{"type":"number","label":"Quantity","required":true},
+  "productType":{
+    "type":"select",
+    "label":"productType",
+    "required":true,
+    "options":[
+      {"label":"Meat","value":"meat"},
+      {"label":"Fruit","value":"fruit"},
+      {"label":"Vegetal","value":"vegetal"}
+    ]
+  },
+  "tag":{
+    "type":"radio",
+    "label":"Tag",
+    "options":[
+      {"label":"Vegan","value":"vegan"},
+      {"label":"Healthy","value":"healthy"},
+      {"label":"Gluten free","value":"gluten free"}
+    ]
+  },
+  "available":{"type":"checkbox","label":"Available"}
+}
