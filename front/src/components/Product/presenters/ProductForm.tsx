@@ -5,12 +5,14 @@ interface Props {
   product: any;
   setProduct: (arg0: any) => void;
   updateProduct: () => void;
+  setRenderedComponent: (arg0: any) => void;
 }
 
 export const ProductForm: React.FC<Props> = ({
   product,
   setProduct,
   updateProduct,
+  setRenderedComponent,
 }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,6 +39,7 @@ export const ProductForm: React.FC<Props> = ({
           const { type } = input;
           if (type === 'select') return renderSelect(name, input);
           else if (type === 'radio') return renderRadio(name, input);
+          else if (type === 'checkbox') return renderCheckbox(name, input);
           else return renderInput(type, name, input);
         })}
         <input type="submit" value="Submit" />
@@ -47,27 +50,39 @@ export const ProductForm: React.FC<Props> = ({
   const renderInput = (type: string, name: string, input: any) => {
     type === 'date' && (product[name] = product[name].split('T')[0]);
     return (
-      <div key={name}>
+      <div key={name} className="formGroup">
         <label>{input.label}</label>
         <input
           type={type}
           value={product[name]}
           name={name}
           onChange={handleChange}
-          checked={type === 'checkbox' && product[name]}
           required={!!input.required}
           maxLength={input.maxLength || 524288}
           pattern={input.pattern || '.*'}
         />
-        <br />
+      </div>
+    );
+  };
+
+  const renderCheckbox = (name: string, input: any) => {
+    return (
+      <div key={name} className="formCheckbox">
+        <label>{input.label}</label>
+        <input
+          type="checkbox"
+          name={name}
+          onChange={handleChange}
+          checked={product[name]}
+        />
       </div>
     );
   };
 
   const renderRadio = (name: string, input: any) => {
     return (
-      <div key={name}>
-        <label>{input.label}</label>
+      <div key={name} className="formRadio">
+        <p>{input.label}</p>
         {input.options.map(
           ({ value, label }: { value: string; label: string }) => {
             return (
@@ -84,14 +99,13 @@ export const ProductForm: React.FC<Props> = ({
             );
           }
         )}
-        <br />
       </div>
     );
   };
 
   const renderSelect = (name: string, input: any) => {
     return (
-      <div key={name}>
+      <div key={name} className="formGroup">
         <label>{input.label}</label>
         <select value={product[name]} name={name} onChange={handleChange}>
           {input.options.map(
@@ -102,15 +116,15 @@ export const ProductForm: React.FC<Props> = ({
             )
           )}
         </select>
-        <br />
       </div>
     );
   };
 
   return (
-    <React.Fragment>
+    <div className="productForm">
       <h1>Products Form</h1>
       {renderForm()}
-    </React.Fragment>
+      <a onClick={() => setRenderedComponent('table')}>Back</a>
+    </div>
   );
 };

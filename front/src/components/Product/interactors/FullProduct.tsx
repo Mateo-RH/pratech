@@ -36,6 +36,7 @@ export const FullProduct: React.FC<Props> = ({
     productType: 'meat',
     available: true,
   });
+  const [message, setMessage] = useState<any>('');
 
   useEffect(() => {
     id &&
@@ -51,40 +52,41 @@ export const FullProduct: React.FC<Props> = ({
 
   const updateProduct = () => {
     ProductMethods.update(id, token, product)
-      .then((res) => {
+      .then(() => {
         setUpdateTable({});
-        console.log(res);
+        setMessage('Product updated');
+        setTimeout(() => setMessage(''), 3000);
       })
       .catch((e) => {
-        // TODO: error
-        console.log(e);
+        setMessage(e);
+        setTimeout(() => setMessage(''), 3000);
       });
   };
 
   const createProduct = () => {
     ProductMethods.create(token, product)
-      .then((res) => {
+      .then(() => {
         setUpdateTable({});
-        console.log(res);
+        setMessage('Product created');
+        setTimeout(() => setMessage(''), 3000);
       })
       .catch((e) => {
-        // TODO: error
-        console.log(e);
+        setMessage(e);
+        setTimeout(() => setMessage(''), 3000);
       });
   };
 
   return (
     <React.Fragment>
+      {message && <p>{message}</p>}
       {product && (
         <ProductForm
           product={product}
           setProduct={setProduct}
           updateProduct={id ? updateProduct : createProduct}
+          setRenderedComponent={setRenderedComponent}
         />
       )}
-      <button onClick={() => setRenderedComponent('table')}>
-        Back to table
-      </button>
     </React.Fragment>
   );
 };

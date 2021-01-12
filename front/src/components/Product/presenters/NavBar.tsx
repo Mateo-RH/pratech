@@ -1,4 +1,5 @@
 import React from 'react';
+import { BiSearch } from 'react-icons/bi';
 
 interface Props {
   logout: () => void;
@@ -16,19 +17,22 @@ export const NavBar: React.FC<Props> = ({
   renderedComponent,
 }) => {
   return (
-    <React.Fragment>
-      <button onClick={logout}>Logout</button>
+    <div className="navBar">
       {renderedComponent === 'table' && (
-        <React.Fragment>
-          <label>Product id</label>
+        <div className="searchBox">
           <input
             type="text"
             value={productId}
+            placeholder="Product id"
             onChange={(event) => setProductId(event.target.value)}
           />
-          <button onClick={search}>Search</button>
-        </React.Fragment>
+          <BiSearch onClick={search} className="searchBtn" />
+        </div>
       )}
-    </React.Fragment>
+      <div></div>
+      <button onClick={logout} className="logoutBtn">
+        Logout
+      </button>
+    </div>
   );
 };

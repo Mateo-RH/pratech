@@ -1,0 +1,170 @@
+.table {
+  background: white;
+  width: 900px;
+  border-radius: 6px;
+  margin: 20px auto 0 auto;
+  padding: 30px 30px 60px;
+  border: #131c27 4px solid;
+}
+
+.table table {
+  margin: 0 auto;
+  margin-bottom: 25px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table button {
+  background: #b5172f;
+  width: 125px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: white;
+  border-radius: 4px;
+  border: #b5172f 1px solid;
+  cursor: pointer;
+
+  float: left;
+  font-weight: 800;
+  font-size: 0.8em;
+}
+
+.table button:hover {
+  background: #7c0a1b;
+  transition: background 0.3s ease-in-out;
+}
+
+.navBar input {
+  border: none;
+  height: 31px;
+  border-radius: 3px;
+  padding-left: 15px;
+  box-sizing: border-box;
+  width: 200px;
+}
+
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.searchBox {
+  display: inline-block;
+  position: relative;
+}
+
+.searchBtn {
+  top: calc(50% - 8px);
+  position: absolute;
+  right: 5px;
+  cursor: pointer;
+}
+
+.searchBtn:hover {
+  color: #2980b9;
+}
+
+.table td,
+.table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.tableBtn:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+}
+
+.table th {
+  text-transform: capitalize;
+}
+
+.logoutBtn {
+  background-color: transparent;
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.productForm {
+  background: white;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: left;
+  display: inline-block;
+  margin: 0 auto;
+  width: 400px;
+  box-sizing: border-box;
+}
+
+.productForm input[type='submit'] {
+  cursor: pointer;
+  background-color: #b5172f;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-weight: 500;
+  padding: 5px 12px;
+}
+
+.productForm a {
+  position: fixed;
+  margin-top: 30px;
+  color: rgb(235, 78, 78);
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  display: block;
+  text-align: left;
+  font-size: 12px;
+  color: #42444f;
+  margin-bottom: 5px;
+}
+
+.formGroup input {
+  width: 95%;
+  height: 32px;
+  border: 0.5px solid #adadad;
+  border-radius: 3px;
+  padding: 0 0 0 15px;
+}
+
+.formRadio {
+  margin-bottom: 20px;
+}
+
+.formCheckbox {
+  margin-bottom: 20px;
+}
+
+.formRadio p {
+  color: black;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.formRadio label {
+  text-align: left;
+  margin-right: 20px;
+  font-size: 12px;
+  color: #42444f;
+  margin-bottom: 5px;
+}
+
+.formCheckbox label {
+  color: black;
+  font-weight: 500;
+  font-size: 14px;
+}

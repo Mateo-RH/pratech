@@ -32,7 +32,6 @@ export const Products: React.FC<Props> = ({ token, setToken }) => {
         setProducts(products);
       })
       .catch((e) => {
-        //   TODO: ERROR MESSAGES
         console.log(e);
       });
   }, [updateTable]);

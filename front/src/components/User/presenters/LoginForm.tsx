@@ -1,12 +1,19 @@
 import React from 'react';
+import './styles.css';
 
 interface Props {
   login: () => void;
   user: any;
   setUser: (arg0: any) => void;
+  switchForms: () => void;
 }
 
-export const LoginForm: React.FC<Props> = ({ login, user, setUser }) => {
+export const LoginForm: React.FC<Props> = ({
+  login,
+  user,
+  setUser,
+  switchForms,
+}) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     login();
@@ -22,22 +29,31 @@ export const LoginForm: React.FC<Props> = ({ login, user, setUser }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Login</h1>
-      <label>Email</label>
-      <input
-        type="text"
-        value={user.email}
-        name="email"
-        onChange={handleChange}
-      />
-      <label>Password</label>
-      <input
-        type="password"
-        value={user.password}
-        name="password"
-        onChange={handleChange}
-      />
-      <input type="submit" value="Submit" />
+      <div className="box">
+        <h1>Login</h1>
+        <input
+          type="text"
+          value={user.email}
+          name="email"
+          onChange={handleChange}
+          className="email"
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          value={user.password}
+          className="email"
+          onChange={handleChange}
+          name="password"
+          placeholder="Password"
+        />
+        <input type="submit" value="Sign In" className="btn" />
+        <a href="#">
+          <div id="btn2" onClick={switchForms}>
+            Sign Up
+          </div>
+        </a>
+      </div>
     </form>
   );
 };

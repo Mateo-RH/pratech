@@ -1,4 +1,7 @@
 import React from 'react';
+import './styles.css';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { FiEdit3 } from 'react-icons/fi';
 
 interface Props {
   products: Product[];
@@ -30,8 +33,15 @@ export const ProductsTable: React.FC<Props> = ({
         {Object.entries(product).map((x, i) => (
           <td key={i}>{x[1]}</td>
         ))}
-        <td onClick={() => switchComponent(product.id)}>edit</td>
-        <td onClick={() => deleteProduct(product.id)}>delete</td>
+        <FiEdit3
+          className="tableBtn"
+          onClick={() => switchComponent(product.id)}
+        />
+        <AiOutlineDelete
+          className="tableBtn"
+          onClick={() => deleteProduct(product.id)}
+          style={{ marginLeft: '10px', color: '#ff495f' }}
+        />
       </tr>
     );
   };
@@ -52,10 +62,14 @@ export const ProductsTable: React.FC<Props> = ({
   };
 
   return (
-    <React.Fragment>
+    <div className="table">
       <h1>Products Table</h1>
-      {products.length > 0 ? renderTable() : <p>No products</p>}
-      <button onClick={() => switchComponent()}>Create Product</button>
-    </React.Fragment>
+      {products.length > 0 ? (
+        renderTable()
+      ) : (
+        <p style={{ color: 'black' }}>No products</p>
+      )}
+      <button onClick={() => switchComponent()}>New Product</button>
+    </div>
   );
 };

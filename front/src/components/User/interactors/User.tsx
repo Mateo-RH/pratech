@@ -25,37 +25,47 @@ export const User: React.FC<Props> = ({ setToken }) => {
         localStorage.setItem('token', token);
         setToken(token);
       })
-      .catch((error) => setError(error.message));
+      .catch((error) => {
+        setError(error.message);
+        setTimeout(() => setError(''), 3000);
+      });
   };
 
   const register = () => {
     UserMethods.register(user.email, user.password, user.name)
       .then(() => {
-        // TODO: show success
-        setShowRegister(false);
+        setError('Registration succeeded');
+        setTimeout(() => setError(''), 3000);
+        switchForms();
       })
-      .catch((error) => setError(error.message));
+      .catch((error) => {
+        setError(error.message);
+        setTimeout(() => setError(''), 3000);
+      });
   };
 
   const switchForms = () => {
     setUser({ name: '', email: '', password: '' });
-    setError('');
     setShowRegister(!showRegister);
   };
 
   return (
     <React.Fragment>
-      {error && setTimeout(() => setError(''), 3000) && <Error error={error} />}
+      {error && <Error error={error} />}
       {showRegister ? (
-        <React.Fragment>
-          <RegisterForm user={user} setUser={setUser} register={register} />
-          <button onClick={switchForms}>Back to login</button>
-        </React.Fragment>
+        <RegisterForm
+          user={user}
+          setUser={setUser}
+          register={register}
+          switchForms={switchForms}
+        />
       ) : (
-        <React.Fragment>
-          <LoginForm login={login} user={user} setUser={setUser} />
-          <button onClick={switchForms}>Create Account</button>
-        </React.Fragment>
+        <LoginForm
+          login={login}
+          user={user}
+          setUser={setUser}
+          switchForms={switchForms}
+        />
       )}
     </React.Fragment>
   );

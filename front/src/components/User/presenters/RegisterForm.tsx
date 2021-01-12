@@ -1,12 +1,19 @@
 import React from 'react';
+import './styles.css';
 
 interface Props {
   register: () => void;
   user: any;
   setUser: (arg0: any) => void;
+  switchForms: () => void;
 }
 
-export const RegisterForm: React.FC<Props> = ({ user, setUser, register }) => {
+export const RegisterForm: React.FC<Props> = ({
+  user,
+  setUser,
+  register,
+  switchForms,
+}) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     register();
@@ -22,29 +29,39 @@ export const RegisterForm: React.FC<Props> = ({ user, setUser, register }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Registration</h1>
-      <label>Email</label>
-      <input
-        type="text"
-        value={user.email}
-        name="email"
-        onChange={handleChange}
-      />
-      <label>Password</label>
-      <input
-        type="password"
-        value={user.password}
-        name="password"
-        onChange={handleChange}
-      />
-      <label>Name</label>
-      <input
-        type="text"
-        value={user.name}
-        name="name"
-        onChange={handleChange}
-      />
-      <input type="submit" value="Submit" />
+      <div className="box">
+        <h1>Registration</h1>
+        <input
+          type="text"
+          value={user.email}
+          name="email"
+          placeholder="Email"
+          className="email"
+          onChange={handleChange}
+        />
+        <input
+          type="password"
+          value={user.password}
+          name="password"
+          placeholder="Password"
+          className="email"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          value={user.name}
+          name="name"
+          placeholder="Name"
+          className="email"
+          onChange={handleChange}
+        />
+        <input type="submit" value="Submit" className="btn" />
+        <a href="#">
+          <div id="btn2" onClick={switchForms}>
+            Login
+          </div>
+        </a>
+      </div>
     </form>
   );
 };
