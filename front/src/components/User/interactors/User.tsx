@@ -5,7 +5,7 @@ import { Error } from '../presenters/Error';
 import UserMethods from '../controllers';
 
 interface Props {
-  setToken: (arg0: string | undefined) => void;
+  setToken: (arg0: string) => void;
 }
 
 interface User {

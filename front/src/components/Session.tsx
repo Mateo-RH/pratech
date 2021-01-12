@@ -4,7 +4,7 @@ import { User } from './User/interactors/User';
 import Axios from 'axios';
 
 export const Session: React.FC = () => {
-  const [token, setToken] = useState<string>();
+  const [token, setToken] = useState<string>('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');

@@ -3,6 +3,8 @@ import React from 'react';
 interface Props {
   products: Product[];
   setSelectedProduct: (arg0: string) => void;
+  setRenderedComponent: (arg0: any) => void;
+  deleteProduct: (arg0: string) => void;
 }
 
 interface Product {
@@ -14,14 +16,22 @@ interface Product {
 export const ProductsTable: React.FC<Props> = ({
   products,
   setSelectedProduct,
+  setRenderedComponent,
+  deleteProduct,
 }) => {
+  const switchComponent = (productId = '') => {
+    setSelectedProduct(productId);
+    setRenderedComponent('single');
+  };
+
   const renderRow = (product: Product) => {
     return (
       <tr key={product.id}>
         {Object.entries(product).map((x, i) => (
           <td key={i}>{x[1]}</td>
         ))}
-        <p onClick={() => setSelectedProduct(product.id)}>Select</p>
+        <td onClick={() => switchComponent(product.id)}>edit</td>
+        <td onClick={() => deleteProduct(product.id)}>delete</td>
       </tr>
     );
   };
@@ -45,6 +55,7 @@ export const ProductsTable: React.FC<Props> = ({
     <React.Fragment>
       <h1>Products Table</h1>
       {products.length > 0 ? renderTable() : <p>No products</p>}
+      <button onClick={() => switchComponent()}>Create Product</button>
     </React.Fragment>
   );
 };

@@ -29,5 +29,5 @@
       {"label":"Gluten free","value":"gluten free"}
     ]
   },
-  "available":{"type":"checkbox","label":"Available", "required":true}
+  "available":{"type":"checkbox","label":"Available"}
 }

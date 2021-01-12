@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FullProduct } from './FullProduct';
-import { CreateProduct } from './CreateProduct';
 import { ProductsTable } from '../presenters/ProductsTable';
+import { NavBar } from '../presenters/NavBar';
 import ProductMethods from '../controllers';
 
 interface Product {
@@ -15,11 +15,16 @@ interface Props {
   setToken: (arg0: string) => void;
 }
 
+type RenderedComponent = 'table' | 'single';
+
 export const Products: React.FC<Props> = ({ token, setToken }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [productId, setProductId] = useState<string>('');
   const [selectedProduct, setSelectedProduct] = useState<string>('');
-  const [showCreateProduct, setShowCreateProduct] = useState<boolean>(false);
+  const [updateTable, setUpdateTable] = useState<any>({});
+  const [renderedComponent, setRenderedComponent] = useState<RenderedComponent>(
+    'table'
+  );
 
   useEffect(() => {
     ProductMethods.getAll(token)
@@ -30,9 +35,18 @@ export const Products: React.FC<Props> = ({ token, setToken }) => {
         //   TODO: ERROR MESSAGES
         console.log(e);
       });
-  }, []);
+  }, [updateTable]);
+
+  const deleteProduct = (productId: string) => {
+    ProductMethods.delete(productId, token)
+      .then(() => setUpdateTable({}))
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const logout = () => {
+    localStorage.removeItem('token');
     setToken('');
   };
 
@@ -42,32 +56,34 @@ export const Products: React.FC<Props> = ({ token, setToken }) => {
         setProducts(products);
       })
       .catch((e) => {
-        //   TODO: ERROR MESSAGES
         console.log(e);
       });
   };
 
   return (
     <React.Fragment>
-      <button onClick={logout}>Logout</button>
-      <label>Product id</label>
-      <input
-        type="text"
-        value={productId}
-        onChange={(event) => setProductId(event.target.value)}
+      <NavBar
+        productId={productId}
+        logout={logout}
+        search={search}
+        setProductId={setProductId}
+        renderedComponent={renderedComponent}
       />
-      <button onClick={search}>Search</button>
-      {showCreateProduct ? (
-        <CreateProduct token={token} />
-      ) : selectedProduct ? (
-        <FullProduct id={selectedProduct} token={token} />
-      ) : (
+      {renderedComponent === 'table' ? (
         <ProductsTable
           products={products}
           setSelectedProduct={setSelectedProduct}
+          setRenderedComponent={setRenderedComponent}
+          deleteProduct={deleteProduct}
+        />
+      ) : (
+        <FullProduct
+          id={selectedProduct}
+          token={token}
+          setRenderedComponent={setRenderedComponent}
+          setUpdateTable={setUpdateTable}
         />
       )}
-      <button onClick={() => setShowCreateProduct(true)}>New Product</button>
     </React.Fragment>
   );
 };
